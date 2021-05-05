@@ -93,24 +93,34 @@ void setup() {
 	soilHealth = new int[SOIL_COL_COUNT][SOIL_ROW_COUNT];
 	for(int i = 0; i < soilHealth.length; i++){
 		for (int j = 0; j < soilHealth[i].length; j++) {
-			 // 0: no soil, 15: soil only, 30: 1 stone, 45: 2 stones
+			// 0: no soil, 15: soil only, 30: 1 stone, 45: 2 stones
+      // i + 1 = col, j + 1 = row
 			soilHealth[i][j] = 15;
+
       // Area 1 ~ 2
       if(i == j){
         soilHealth[i][j] = 30;
       }
+      
       // Area 3 ~ 4
-      if(j > 8 && j < 17){
-        if(j % 4 == 1 || j % 4 == 4){
-          if(i % 4 == 2 || i % 4 == 3){
+      if(j > 7 && j < 16){
+        if((j + 1) % 4 == 1 || (j + 1) % 4 == 0){
+          if((i + 1) % 4 == 2 || (i + 1) % 4 == 3){
             soilHealth[i][j] = 30;
           }
-        }else if(i % 4 == 1 || i % 4 == 4){
+        }else if((i + 1) % 4 == 1 || (i + 1) % 4 == 0){
             soilHealth[i][j] = 30;
         }
       }
       // Area 5 ~ 6
-      
+      if(j > 15 && j < 24){
+        if(i + j == 17 || i + j == 20 || i + j == 23 || i + j == 26 || i + j == 29){
+          soilHealth[i][j] = 30;
+        }
+        if(i + j == 18 || i + j == 21 || i + j == 24 || i + j == 27 || i + j == 30){
+          soilHealth[i][j] = 45;
+        }
+      }
 		}
 	}
 
@@ -176,6 +186,12 @@ void draw() {
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
 				
+        if(soilHealth[i][j] >= 30){
+          image(stones[0][4], i * SOIL_SIZE, j * SOIL_SIZE);
+        }
+        if(soilHealth[i][j] == 45){
+          image(stones[1][4], i * SOIL_SIZE, j * SOIL_SIZE);
+        }
 			}
 		}
 
