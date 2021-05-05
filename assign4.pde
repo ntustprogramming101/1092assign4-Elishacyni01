@@ -95,6 +95,22 @@ void setup() {
 		for (int j = 0; j < soilHealth[i].length; j++) {
 			 // 0: no soil, 15: soil only, 30: 1 stone, 45: 2 stones
 			soilHealth[i][j] = 15;
+      // Area 1 ~ 2
+      if(i == j){
+        soilHealth[i][j] = 30;
+      }
+      // Area 3 ~ 4
+      if(j > 8 && j < 17){
+        if(j % 4 == 1 || j % 4 == 4){
+          if(i % 4 == 2 || i % 4 == 3){
+            soilHealth[i][j] = 30;
+          }
+        }else if(i % 4 == 1 || i % 4 == 4){
+            soilHealth[i][j] = 30;
+        }
+      }
+      // Area 5 ~ 6
+      
 		}
 	}
 
