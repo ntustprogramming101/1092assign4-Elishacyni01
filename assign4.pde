@@ -38,6 +38,8 @@ int playerMoveDuration = 15;
 
 boolean demoMode = false;
 
+boolean cabbageAppear = true;
+
 void setup() {
 	size(640, 480, P2D);
 	bg = loadImage("img/bg.jpg");
@@ -142,7 +144,12 @@ void setup() {
 	// Initialize soidiers and their position
 
 	// Initialize cabbages and their position
-
+  cabbageX = new float [6];
+  cabbageY = new float [6];
+  for(int i=0; i<6; i++){
+    cabbageX[i] = floor(random(8))*SOIL_SIZE + i*4*SOIL_SIZE;
+    cabbageY[i] = floor(random(8))*SOIL_SIZE + i*4*SOIL_SIZE;
+  }
 }
 
 void draw() {
@@ -216,6 +223,14 @@ void draw() {
 
 		// Cabbages
 		// > Remember to check if playerHealth is smaller than PLAYER_MAX_HEALTH!
+    if(cabbageAppear == true){
+      image(cabbage, cabbageX, cabbageY);
+    }
+    if(cabbageAppear == false){
+      cabbageX = -80;
+      cabbageY = -80;
+      image(cabbage, cabbageX, cabbageY);
+    }
 
 		// Groundhog
 
