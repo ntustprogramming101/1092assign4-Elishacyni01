@@ -124,6 +124,21 @@ void setup() {
 		}
 	}
 
+  // Random Soil Empty
+  for (int j = 0; j < SOIL_ROW_COUNT; j++) {
+    if(j > 0){
+      int [] soilEmpty1 = new int [SOIL_ROW_COUNT];
+      int [] soilEmpty2 = new int [SOIL_ROW_COUNT];
+      soilEmpty1[j] = floor(random(8));
+      soilEmpty2[j] = floor(random(8));
+      soilHealth[soilEmpty1[j]][j] = 0;
+      soilHealth[soilEmpty2[j]][j] = 0;
+    }
+  }
+    
+      
+      
+      
 	// Initialize soidiers and their position
 
 	// Initialize cabbages and their position
@@ -186,6 +201,10 @@ void draw() {
 				int areaIndex = floor(j / 4);
 				image(soils[areaIndex][4], i * SOIL_SIZE, j * SOIL_SIZE);
 				
+
+        if(soilHealth[i][j] == 0){
+          image(soilEmpty, i * SOIL_SIZE, j * SOIL_SIZE);
+        }
         if(soilHealth[i][j] >= 30){
           image(stones[0][4], i * SOIL_SIZE, j * SOIL_SIZE);
         }
