@@ -147,8 +147,8 @@ void setup() {
   cabbageX = new float [6];
   cabbageY = new float [6];
   for(int i=0; i<6; i++){
-    cabbageX[i] = floor(random(8))*SOIL_SIZE + i*4*SOIL_SIZE;
-    cabbageY[i] = floor(random(8))*SOIL_SIZE + i*4*SOIL_SIZE;
+    cabbageX[i] = floor(random(8))*SOIL_SIZE;
+    cabbageY[i] = floor(random(4))*SOIL_SIZE + i*4*SOIL_SIZE;
   }
 }
 
@@ -223,14 +223,27 @@ void draw() {
 
 		// Cabbages
 		// > Remember to check if playerHealth is smaller than PLAYER_MAX_HEALTH!
-    if(cabbageAppear == true){
-      image(cabbage, cabbageX, cabbageY);
+    for(int i=0; i<6; i++){
+      if(cabbageAppear == true){
+        image(cabbage, cabbageX[i], cabbageY[i]);
+      }
+      if(cabbageAppear == false){
+        cabbageX[i] = -80;
+        cabbageY[i] = -80;
+        image(cabbage, cabbageX[i], cabbageY[i]);
+      }
+      
+      // Groundhog eat cabbage
+      if(playerX < cabbageX[i] + 80 && playerX + 80 > cabbageX[i]){
+        if(playerY < cabbageY[i] + 80 && playerY + 80 > cabbageY[i]){
+          playerHealth ++;
+          cabbageAppear = false;
+        }
+      }
     }
-    if(cabbageAppear == false){
-      cabbageX = -80;
-      cabbageY = -80;
-      image(cabbage, cabbageX, cabbageY);
-    }
+    
+
+   
 
 		// Groundhog
 
